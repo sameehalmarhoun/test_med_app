@@ -56,7 +56,7 @@ const App = () =>{
                 </li>
                 {/* List item for the 'Sign Up' link with a button */}
                 <li className="link">
-                <a href="../Sign_Up//Sign_Up.html">
+                <a href="../Sign_Up/Sign_Up.html">
                     <button className="btn1">Sign Up</button>
                 </a>
                 </li>
