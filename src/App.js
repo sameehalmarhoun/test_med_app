@@ -19,12 +19,10 @@ function App() {
           <Navbar/>
           {/* Set up the Routes for different pages */}
           <Routes>
-            <Route path="/" element={<LandingPage/>}/>
-            <Route path="/" element={<Login/>}/>
-            <Route path="/" element={<SignUp/>}/>
-
-            
-            {/* Define individual Route components for different pages */}
+            <Route index element={<LandingPage/>}/>
+            <Route path="/LandingPage" element={<LandingPage/>}/>
+            <Route path="/Login" element={<Login/>}/>
+            <Route path="/Sign_Up" element={<SignUp/>}/>
           </Routes>
         </BrowserRouter>
     </div>

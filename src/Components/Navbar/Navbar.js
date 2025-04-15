@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 
 // Import components for routing from react-router-dom library
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 // Import custom Navbar component
 // import Navbar from './Components/Navbar/Navbar';
@@ -18,7 +18,7 @@ const App = () =>{
             {/* Navigation logo section */}
             <div className="nav__logo">
                 {/* Link to the home page */}
-                <a href="/">
+                <Link to ="/">
                 StayHealthy 
                 {/* Insert an SVG icon of a doctor with a stethoscope */}
                 <svg xmlns="https://pixabay.com/get/g06f02392d82a2488078f58546749f4b07318953a943a2109d0122512e8177a30aba646981ba50dd0d27b6dc8616a9096.svg" height={26} width={26} viewBox="0 0 1000 1000" style={{fill: '#3685fb'}}>
@@ -35,7 +35,7 @@ const App = () =>{
                     </g>
                     </g>
                 </svg>
-                </a>
+                </Link>
                 {/* A span element for styling purposes */}
                 <span>.</span>
             </div>
@@ -48,7 +48,7 @@ const App = () =>{
             <ul className="nav__links active">
                 {/* List item for the 'Home' link */}
                 <li className="link">
-                <a href="../Landing_Page/LandingPage.html">Home</a>
+                <Link to="./LandingPage">Home</Link>
                 </li>
                 {/* List item for the 'Appointments' link */}
                 <li className="link">
@@ -56,15 +56,15 @@ const App = () =>{
                 </li>
                 {/* List item for the 'Sign Up' link with a button */}
                 <li className="link">
-                <a href="../Sign_Up/Sign_Up.html">
+                <Link to="./Sign_Up">
                     <button className="btn1">Sign Up</button>
-                </a>
+                </Link>
                 </li>
                 {/* List item for the 'Login' link with a button */}
                 <li className="link">
-                <a href="../Login/Login.html">
+                <Link to="./Login">
                     <button className="btn1">Login</button>
-                </a>
+                </Link>
                 </li>
             </ul>
         </nav>
