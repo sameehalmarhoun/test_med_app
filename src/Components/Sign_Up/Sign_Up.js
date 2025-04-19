@@ -19,6 +19,7 @@ const Sign_Up = () => {
         e.preventDefault(); // Prevent default form submission
 
         // API Call to register user
+        try{
         const response = await fetch(`${API_URL}/api/auth/register`, {
             method: "POST",
             headers: {
@@ -31,12 +32,16 @@ const Sign_Up = () => {
                 phone: phone,
             }),
         });
+        
+        const responseData = await response.json(); // Parse the response JSON
+        }
+        catch(err){
+            console.log(err);
+        }
 
-        const json = await response.json(); // Parse the response JSON
-
-        if (json.authtoken) {
+        if (responseData.authtoken) {
             // Store user data in session storage
-            sessionStorage.setItem("auth-token", json.authtoken);
+            sessionStorage.setItem("auth-token", responseData.authtoken);
             sessionStorage.setItem("name", name);
             sessionStorage.setItem("phone", phone);
             sessionStorage.setItem("email", email);
@@ -45,12 +50,12 @@ const Sign_Up = () => {
             navigate("/");
             window.location.reload(); // Refresh the page
         } else {
-            if (json.errors) {
-                for (const error of json.errors) {
+            if (responseData.errors) {
+                for (const error of responseData.errors) {
                     setShowerr(error.msg); // Show error messages
                 }
             } else {
-                setShowerr(json.error);
+                setShowerr(responseData.error);
             }
         }
     };
