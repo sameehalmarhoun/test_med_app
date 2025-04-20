@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import './Sign_Up.css'
 import { Link, useNavigate } from 'react-router-dom';
-// import { API_URL } from '../../config';
+import { API_URL } from '../../config';
 
 // Function component for Sign Up form
 const Sign_Up = () => {
     // State variables using useState hook
-    const initaialValues = {name:"", email:"", phone:"", password:"", };
-    const [formValues,setFormValues]= useState(initaialValues);
+    const initialValues = {username:"", email:"", phone:"", password:""};
+    const [formValues,setFormValues]= useState(initialValues);
     const [formErrors,setFormErrors] = useState({});
     const [isSubmit , setIsSubmit] = useState(false);
 
@@ -18,16 +18,13 @@ const Sign_Up = () => {
         
     };
     
-    useEffect(() => {
-        if(Object.keys(formErrors).length === 0 && isSubmit){
-            }
-    },[formErrors]);
+    
 
     const validate = (values) => {
         const errors ={};
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
         if (!values.username){
-            errors.username = "Username is required!";
+            errors.username = "name is required!";
         }
         if (!values.email){
             errors.email = "Email is required!";
@@ -36,8 +33,9 @@ const Sign_Up = () => {
         }
         if (!values.phone){
             errors.phone = "Phone is required!";
-        }else if (values.phone.length != 10){
+        }else if (values.phone.length !== 10){
             errors.password = "Phone number must be 10 digits";
+        }
         if (!values.password){
             errors.password = "Password is required!";
         }else if (values.password.length < 4){
@@ -46,22 +44,27 @@ const Sign_Up = () => {
             return errors;
     };
     // Function to handle form submission
-    const register = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault(); // Prevent default form submission
         setFormErrors(validate(formValues));
         setIsSubmit(true);
     };
     
-
+    useEffect(() => {
+        // if(Object.keys(formErrors).length === 0 && isSubmit){
+        //     console.log(formErrors);
+        //     }
+    },[formErrors]);
         
    
 
     // JSX to render the Sign Up form
     return (
         <div className="container" style={{marginTop:'5%'}}>
-            {Object.keys(formErrors).length === 0 && isSubmit ? (<div classname="ui message success">Signed Up Successfully</div>
+            {Object.keys(formErrors).length === 0 && isSubmit ? (<div className='ui message success'>Signed Up Successfully</div>
         ):(
-            <pre>{JSON.stringify(formValues,undefined,2)}</pre>
+           <div></div> // <div>Unsuccessful Signed Up</div>
+            // // <pre>{JSON.stringify(formValues,undefined,2)}</pre>
         )}
             <div className="signup-grid">
                 <div className="signup-text"> {/* Title for the sign-up form */}
@@ -72,10 +75,10 @@ const Sign_Up = () => {
                 </div>
                 <div className="signup-form">
                     
-                    <form method="POST" onSubmit={register}>
+                    <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                            <label htmlFor="name">Name</label>
-                            <input value={formValues.username} type="text" onChange={handleChange} name="name" id="name" className="form-control" placeholder="Enter your name" aria-describedby="helpId" />
+                            <label htmlFor="username">Name</label>
+                            <input value={formValues.username} type="text" onChange={handleChange} name="username" id="username" className="form-control" placeholder="Enter your name" aria-describedby="helpId" />
                         </div>
                         <p>{formErrors.username}</p>
                         <div className="form-group">
@@ -105,6 +108,6 @@ const Sign_Up = () => {
         //{/* Note: Sign up role is not stored in the database. Additional logic can be implemented for this based on your React code. */}
     );
 }
-}
+
 
 export default Sign_Up; // Export the Sign_Up component for use in other components
