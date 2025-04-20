@@ -1,7 +1,7 @@
 // Following code has been commented with appropriate comments for your reference.
 import React, { useState, useEffect } from 'react';
 import './Sign_Up.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { API_URL } from '../../config';
 
 // Function component for Sign Up form
@@ -12,6 +12,7 @@ const Sign_Up = () => {
     const [formErrors,setFormErrors] = useState({});
     const [isSubmit , setIsSubmit] = useState(false);
 
+    const navigate = useNavigate();
     const handleChange = (e) => {
         const {name, value} = e.target;
         setFormValues({...formValues, [name]: value});
@@ -51,9 +52,10 @@ const Sign_Up = () => {
     };
     
     useEffect(() => {
-        // if(Object.keys(formErrors).length === 0 && isSubmit){
-        //     console.log(formErrors);
-        //     }
+        if(Object.keys(formErrors).length === 0 && isSubmit){
+            alert("signing Up successfully");
+            navigate("/");
+        }
     },[formErrors]);
         
    

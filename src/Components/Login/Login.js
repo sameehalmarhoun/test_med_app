@@ -8,9 +8,12 @@ import { API_URL } from '../../config';
 const Login = () => {
 
   // State variables for email and password
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState('');
-
+//   const [password, setPassword] = useState("");
+//   const [email, setEmail] = useState('');
+const initialValues = { email: "", password: "" };
+const [formValues, setFormValues] = useState(initialValues);
+const [formErrors, setFormErrors] = useState({});
+const [isSubmit, setIsSubmit] = useState(false);
   // Get navigation function from react-router-dom
   const navigate = useNavigate();
 
