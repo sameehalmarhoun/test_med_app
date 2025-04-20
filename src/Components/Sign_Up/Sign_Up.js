@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './Sign_Up.css'
 import { Link, useNavigate } from 'react-router-dom';
-import { API_URL } from '../../config';
+// import { API_URL } from '../../config';
 
 // Function component for Sign Up form
 const Sign_Up = () => {
@@ -22,7 +22,7 @@ const Sign_Up = () => {
     // const [phone, setPhone] = useState('');
     // const [password, setPassword] = useState('');
     // const [showerr, setShowerr] = useState(''); // State to show error messages
-    const navigate = useNavigate(); // Navigation hook from react-router
+    // const navigate = useNavigate(); // Navigation hook from react-router
 
 
     const validate = (values) => {
@@ -38,10 +38,11 @@ const Sign_Up = () => {
         }
         if (!values.phone){
             errors.phone = "Phone is required!";
-        }
+        }else if (!values.phone.length = 10){
+            errors.password = "Phone number must be 10 digits";
         if (!values.password){
             errors.password = "Password is required!";
-        }else if (values.password < 4){
+        }else if (values.password.length < 4){
             errors.password = "Password must be more than 4 characters";
         return errors;
     };
@@ -50,16 +51,16 @@ const Sign_Up = () => {
         e.preventDefault(); // Prevent default form submission
         setFormErrors(validate(formValues));
         setIsSubmit(true);
-
+    };
     
 
         // API Call to register user
-        // try{
-        const response = await fetch(`${API_URL}/api/auth/register`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
+        
+        // const response = await fetch(`${API_URL}/api/auth/register`, {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
             // body: JSON.stringify(formValues,undefined,2)
             // ({
             //     name: username,
@@ -67,44 +68,42 @@ const Sign_Up = () => {
             //     password: password,
             //     phone: phone,
             // }),
-        });
+        // });
         
-        const json = await response.json(); // Parse the response JSON
-        // }
-        // catch(err){
-        //     console.log(err);
-        // }
+        // const json = await response.json(); // Parse the response JSON
+        
 
-        if (json.authtoken) {
-            // Store user data in session storage
-            sessionStorage.setItem("auth-token", json.authtoken);
-            sessionStorage.setItem("name", formValues.username);
-            sessionStorage.setItem("phone", formValues.phone);
-            sessionStorage.setItem("email", formValues.email);
+        // if (json.authtoken) {
+        //     // Store user data in session storage
+        //     sessionStorage.setItem("auth-token", json.authtoken);
+        //     sessionStorage.setItem("name", formValues.username);
+        //     sessionStorage.setItem("phone", formValues.phone);
+        //     sessionStorage.setItem("email", formValues.email);
 
             // Redirect user to home page
-            navigate("/");
-            window.location.reload(); // Refresh the page
-        } else {
-            if (json.errors) {
-                for (const error of json.errors) {
-                    setFormErrors(error.msg);
+            //navigate("/");
+            //window.location.reload(); // Refresh the page
+        //} else {
+            //if (json.errors) {
+               // for (const error of json.errors) {
+                    //setFormErrors(error.msg);
                     // setShowerr(error.msg); // Show error messages
-                }
-            } else {
-                setFormErrors(json.error);
-            }
-        }
-    };
+             //   }
+           // } else {
+              //  setFormErrors(json.error);
+          //  }
+       // }
+  //  };
 
-    useEffect(() => {
-
+   useEffect(() => {
+    if(Object.keys(formErrors).length === 0 && isSubmit){
+    }
     },[formErrors]);
 
     // JSX to render the Sign Up form
     return (
         <div className="container" style={{marginTop:'5%'}}>
-            {Object.keys(formErrors).length === 0 && isSubmit ? (<div>Signed Up Successfully</div>
+            {Object.keys(formErrors).length === 0 && isSubmit ? (<div classname="ui message success">Signed Up Successfully</div>
         ):(
             <pre>{JSON.stringify(formValues,undefined,2)}</pre>
         )}
