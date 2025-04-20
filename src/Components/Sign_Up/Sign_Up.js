@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 // Function component for Sign Up form
 const Sign_Up = () => {
     // State variables using useState hook
-    const initaialValues = {name:"", email:"", phone:"", password:"", showerr:""};
+    const initaialValues = {name:"", email:"", phone:"", password:"", };
     const [formValues,setFormValues]= useState(initaialValues);
     const [formErrors,setFormErrors] = useState({});
     const [isSubmit , setIsSubmit] = useState(false);
@@ -17,13 +17,11 @@ const Sign_Up = () => {
         setFormValues({...formValues, [name]: value});
         
     };
-    // const [name, setName] = useState('');
-    // const [email, setEmail] = useState('');
-    // const [phone, setPhone] = useState('');
-    // const [password, setPassword] = useState('');
-    // const [showerr, setShowerr] = useState(''); // State to show error messages
-    // const navigate = useNavigate(); // Navigation hook from react-router
-
+    
+    useEffect(() => {
+        if(Object.keys(formErrors).length === 0 && isSubmit){
+            }
+    },[formErrors]);
 
     const validate = (values) => {
         const errors ={};
@@ -38,13 +36,14 @@ const Sign_Up = () => {
         }
         if (!values.phone){
             errors.phone = "Phone is required!";
-        }else if (!values.phone.length = 10){
+        }else if (values.phone.length != 10){
             errors.password = "Phone number must be 10 digits";
         if (!values.password){
             errors.password = "Password is required!";
         }else if (values.password.length < 4){
             errors.password = "Password must be more than 4 characters";
-        return errors;
+        }
+            return errors;
     };
     // Function to handle form submission
     const register = async (e) => {
@@ -54,51 +53,8 @@ const Sign_Up = () => {
     };
     
 
-        // API Call to register user
         
-        // const response = await fetch(`${API_URL}/api/auth/register`, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-            // body: JSON.stringify(formValues,undefined,2)
-            // ({
-            //     name: username,
-            //     email: email,
-            //     password: password,
-            //     phone: phone,
-            // }),
-        // });
-        
-        // const json = await response.json(); // Parse the response JSON
-        
-
-        // if (json.authtoken) {
-        //     // Store user data in session storage
-        //     sessionStorage.setItem("auth-token", json.authtoken);
-        //     sessionStorage.setItem("name", formValues.username);
-        //     sessionStorage.setItem("phone", formValues.phone);
-        //     sessionStorage.setItem("email", formValues.email);
-
-            // Redirect user to home page
-            //navigate("/");
-            //window.location.reload(); // Refresh the page
-        //} else {
-            //if (json.errors) {
-               // for (const error of json.errors) {
-                    //setFormErrors(error.msg);
-                    // setShowerr(error.msg); // Show error messages
-             //   }
-           // } else {
-              //  setFormErrors(json.error);
-          //  }
-       // }
-  //  };
-
-   useEffect(() => {
-    if(Object.keys(formErrors).length === 0 && isSubmit){
-    }
-    },[formErrors]);
+   
 
     // JSX to render the Sign Up form
     return (
@@ -130,7 +86,7 @@ const Sign_Up = () => {
                         <div className="form-group">
                             <label htmlFor="email">Email</label>
                             <input value={formValues.email} onChange={handleChange} type="email" name="email" id="email" className="form-control" placeholder="Enter your email" aria-describedby="helpId" />
-                            {formValues.showerr && <div className="err" style={{ color: 'red' }}>{showerr}</div>}
+                           
                         </div>
                         <p>{formErrors.email}</p>
                         <div className="form-group">
@@ -148,6 +104,7 @@ const Sign_Up = () => {
         </div>
         //{/* Note: Sign up role is not stored in the database. Additional logic can be implemented for this based on your React code. */}
     );
+}
 }
 
 export default Sign_Up; // Export the Sign_Up component for use in other components
